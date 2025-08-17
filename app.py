@@ -1,21 +1,20 @@
 import streamlit as st
 import tensorflow as tf
 import numpy as np
-from tensorflow.keras.applications import EfficientNetB0
 from tensorflow.keras.preprocessing import image
-import os
+from PIL import Image
 
 # =========================
 # 1. Load the trained model
 # =========================
 @st.cache_resource
 def load_model():
-    model = tf.keras.models.load_model("lung_cancer_model.h5")
+    model = tf.keras.models.load_model("lung_cancer_model.h5")  # keep in project root or /model
     return model
 
 model = load_model()
 
-# Class names (update according to your dataset)
+# Class names (update if different in your dataset)
 CLASS_NAMES = ["lung_aca", "lung_scc", "lung_n"]
 
 # =========================
@@ -31,13 +30,12 @@ def preprocess(img):
 # =========================
 # 3. Streamlit UI
 # =========================
-st.title("🫁 Lung Cancer Detection (EfficientNetB0)")
+st.title("🫁 Lung Cancer Detection App")
 st.write("Upload a histopathology image, and the model will predict the cancer type.")
 
 uploaded_file = st.file_uploader("Upload an image...", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
-    from PIL import Image
     img = Image.open(uploaded_file)
     st.image(img, caption="Uploaded Image", use_column_width=True)
 
