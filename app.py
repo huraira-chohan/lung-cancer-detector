@@ -9,7 +9,7 @@ from PIL import Image
 # =========================
 @st.cache_resource
 def load_model():
-    model = tf.keras.models.load_model("lung_cancer_detector")  # keep in project root or /model
+    model = tf.keras.models.load_model("lung_cancer_detection")  # keep in project root or /model
     return model
 
 model = load_model()
